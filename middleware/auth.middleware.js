@@ -1,16 +1,16 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user.model');
 
-module.exports.checkUser = (req,res, next) => {
+module.exports.checkUser = (req, res, next) => {
+    //get le token
     const token = req.cookies.jwt;
-    if(token){
-        jwt.verify(token, process.env.TOKEN_SECRET, async (err,decodedToken) => {
-            if(err) {
+    if (token) {
+        jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+            if (err) {
                 res.locals.user = null;
-                res.cookie('jwt', '', {maxAge: 1});
+                res.cookie('jwt', '', { maxAge: 1 });
                 next();
             } else {
-                console.log('decoded token:' + decodedToken.id);
                 let user = await UserModel.findById(decodedToken.id);
                 res.locals.user = user;
                 console.log(res.locals.user);
@@ -18,7 +18,27 @@ module.exports.checkUser = (req,res, next) => {
             }
         })
     } else {
-        res.locals.user=null;
+        res.locals.user = null;
         next();
     }
 }
+
+//connexion auto sans login
+module.exports.requireAuth = (req, res, next) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err);
+
+            } else {
+                console.log(decodedToken.id);
+                next();
+
+            }
+        });
+    } else {
+        console.log('no token');
+    }
+
+};
