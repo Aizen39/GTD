@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import home from '../../pages/home';
+import profil from '../../pages/profil';
+import trending from '../../pages/trending';
 
-export default class index extends Component {
-    render() {
-        return (
-            <View>
-                <Text> textInComponent </Text>
-            </View>
-        )
-    }
-}
+const index = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact component={home} />
+        <Route path="/profil" exact component={profil} />
+        <Route path="/trending" exact component={trending} />
+        <Redirect to="/" />
+      </Switch>
+    </Router>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default index;

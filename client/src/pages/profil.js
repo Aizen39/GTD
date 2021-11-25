@@ -1,14 +1,11 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React from 'react';
 
-export default class profil extends Component {
-    render() {
-        return (
-            <View>
-                <Text> textInComponent </Text>
-            </View>
-        )
-    }
-}
+const profil = () => {
+  return (
+    <div>
+      profil
+    </div>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default profil;
