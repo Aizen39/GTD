@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import home from '../../pages/home';
-import profil from '../../pages/profil';
+import Profil from '../../pages/Profil';
 import trending from '../../pages/trending';
 
 const index = () => {
@@ -9,7 +9,7 @@ const index = () => {
     <Router>
       <Switch>
         <Route path="/" exact component={home} />
-        <Route path="/profil" exact component={profil} />
+        <Route path="/profil" exact component={Profil} />
         <Route path="/trending" exact component={trending} />
         <Redirect to="/" />
       </Switch>
