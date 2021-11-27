@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import LeftNav from "../components/LeftNav";
+import TimeLine from "../components/TimeLine";
 
 const home = () => {
   return (
-    <div>
-      home
+    <div className="home">
+      <LeftNav />
+      <div className="main">
+        <TimeLine />
+      </div>
     </div>
   );
 };
