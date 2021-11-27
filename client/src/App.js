@@ -25,7 +25,7 @@ const App = () => {
     fetchToken();
 
     if (id) dispatch(getUser(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <IdContext.Provider value={id}>
