@@ -4,6 +4,7 @@ import LeftNav from "../components/LeftNav";
 import Log from "../components/log";
 import TimeLine from "../components/TimeLine";
 import NewPostForm from "../components/Post/NewPostForm";
+import Friends from "../components/Profil/Friends";
 
 const Home = () => {
   const id = useContext(IdContext);
@@ -17,6 +18,13 @@ const Home = () => {
           {/* } */}
         </div>
         <TimeLine />
+      </div>
+      <div className="right-side">
+        <div className="right-side-container">
+          <div className="wrapper">
+            <Friends />
+          </div>
+        </div>
       </div>
     </div>
   );
