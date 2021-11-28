@@ -14,6 +14,8 @@ router.post('/', upload.single('file'), postController.createPost);
 router.patch('/like-post/:id', postController.likePost);
 router.patch('/unlike-post/:id', postController.unlikePost);
 
+
+
 //comments
 router.patch('/comment-post/:id', postController.commentPost);
 router.patch('/edit-comment-post/:id', postController.editCommentPost);
