@@ -12,7 +12,9 @@ const Home = () => {
       <LeftNav />
       <div className="main">
         <div className="home-header">
-          {id ? <NewPostForm /> : <Log signin={true} signup={false} />}
+          {/* {id ? */} <NewPostForm /> {/* : */}{" "}
+          <Log signin={true} signup={false} />
+          {/* } */}
         </div>
         <TimeLine />
       </div>
