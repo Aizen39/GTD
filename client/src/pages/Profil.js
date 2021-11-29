@@ -1,21 +1,23 @@
-import React /* , { useContext }  */ from "react";
+import React, { useContext } from "react";
 import Log from "../components/log";
-//import { IdContext } from "../components/AppContext";
+import { IdContext } from "../components/AppContext";
 import UpdateProfil from "../components/Profil/UpdateProfil";
 
 const Profil = () => {
-  //const id = useContext(IdContext);
+  const uid = useContext(IdContext);
 
   return (
     <div className="profil-page">
-      <UpdateProfil />
-
-      <div className="log-container">
-        <Log signin={false} signup={true} />
-        <div className="img-container">
-          <img src="./img/mew.svg" alt="img-log" />
+      {uid ? (
+        <UpdateProfil />
+      ) : (
+        <div className="log-container">
+          <Log signin={false} signup={true} />
+          <div className="img-container">
+            <img src="./img/log.svg" alt="img-log" />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

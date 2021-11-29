@@ -65,7 +65,7 @@ const SignUpForm = () => {
         </>
       ) : ( */
     <form action="" onSubmit={handleRegister} id="sign-up-form">
-      <label htmlfor="pseudo">Pseudo</label>
+      <label htmlFor="pseudo">Pseudo</label>
       <br />
       <input
         type="text"
@@ -75,7 +75,7 @@ const SignUpForm = () => {
       />
       <div className="pseudo error"></div>
       <br />
-      <label htmlfor="email">Email</label>
+      <label htmlFor="email">Email</label>
       <br />
       <input
         type="text"
@@ -85,7 +85,7 @@ const SignUpForm = () => {
       />
       <div className="email error"></div>
       <br />
-      <label htmlfor="password">Mot de passe</label>
+      <label htmlFor="password">Mot de passe</label>
       <br />
       <input
         type="password"
@@ -95,7 +95,7 @@ const SignUpForm = () => {
       />
       <div className="password error"></div>
       <br />
-      <label htmlfor="password-conf">Confirmer mot de passe</label>
+      <label htmlFor="password-conf">Confirmer mot de passe</label>
       <br />
       <input
         type="password"
@@ -107,7 +107,7 @@ const SignUpForm = () => {
       <div className="password-confirm error"></div>
       <br />
       <input type="checkbox" id="terms" />
-      <label htmlfor="terms">
+      <label htmlFor="terms">
         J'accepte les{" "}
         <a href="/" target="_blank" rel="noopener noreferrer">
           conditions générales
