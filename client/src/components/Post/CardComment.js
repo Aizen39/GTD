@@ -36,13 +36,15 @@ const CardComments = ({ post }) => {
             <div className="left-part">
               <img
                 src={
-                  !isEmpty(usersData[0]) &&
-                  usersData
-                    .map((user) => {
-                      if (user._id === comment.commenterId) return user.picture;
-                      else return null;
-                    })
-                    .join("")
+                  !isEmpty(usersData[0])
+                    ? usersData
+                        .map((user) => {
+                          if (user._id === comment.commenterId)
+                            return user.picture;
+                          else return null;
+                        })
+                        .join("")
+                    : null
                 }
                 alt="commenter-pic"
               />

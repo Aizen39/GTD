@@ -15,6 +15,9 @@ const App = () => {
         method: "get",
         url: `${process.env.REACT_APP_API_URL}jwtid`,
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        },
       })
         .then((res) => {
           console.log(res);
