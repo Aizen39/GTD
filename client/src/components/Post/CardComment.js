@@ -68,19 +68,19 @@ const CardComments = ({ post }) => {
           </div>
         );
       })}
-      {/* {userData._id && ( */}
-      <form action="" onSubmit={handleComment} className="comment-form">
-        <input
-          type="text"
-          name="text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-          placeholder="Laisser un commentaire"
-        />
-        <br />
-        <input type="submit" value="Envoyer" />
-      </form>
-      {/* )} */}
+      {userData._id && (
+        <form action="" onSubmit={handleComment} className="comment-form">
+          <input
+            type="text"
+            name="text"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            placeholder="Laisser un commentaire"
+          />
+          <br />
+          <input type="submit" value="Envoyer" />
+        </form>
+      )}
     </div>
   );
 };

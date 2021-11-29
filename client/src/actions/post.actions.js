@@ -19,7 +19,12 @@ export const getPosts = (num) => {
       .get(`${process.env.REACT_APP_API_URL}api/post/`)
       .then((res) => {
         const array = res.data.slice(0, num);
-        dispatch({ type: GET_POSTS, payload: array });
+        dispatch({
+          type: GET_POSTS,
+          payload: array,
+          withCredentials: true,
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -37,6 +42,8 @@ export const likePost = (postId, userId) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
       data: { id: userId },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: LIKE_POST, payload: { postId, userId } });
@@ -51,6 +58,8 @@ export const unlikePost = (postId, userId) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
       data: { id: userId },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: UNLIKE_POST, payload: { postId, userId } });
@@ -65,6 +74,8 @@ export const updatePost = (postId, message) => {
       method: "put",
       url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
       data: { message },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: UPDATE_POST, payload: { message, postId } });
@@ -78,6 +89,8 @@ export const deletePost = (postId) => {
     return axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: DELETE_POST, payload: { postId } });
@@ -92,6 +105,8 @@ export const addComment = (postId, commenterId, text, commenterPseudo) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/comment-post/${postId}`,
       data: { commenterId, text, commenterPseudo },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: ADD_COMMENT, payload: { postId } });
@@ -106,6 +121,8 @@ export const editComment = (postId, commentId, text) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/edit-comment-post/${postId}`,
       data: { commentId, text },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: EDIT_COMMENT, payload: { postId, commentId, text } });
@@ -120,6 +137,8 @@ export const deleteComment = (postId, commentId) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/delete-comment-post/${postId}`,
       data: { commentId },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });

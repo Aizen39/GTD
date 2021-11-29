@@ -1,12 +1,12 @@
-import React /* , { useContext }  */ from "react";
-//import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-//import { IdContext } from "./AppContext";
-//import Logout from "./log/Logout";
+import { IdContext } from "./AppContext";
+import Logout from "./log/Logout";
 
 const Navbar = () => {
-  //const id = useContext(IdContext);
-  //const userData = useSelector((state) => state.userReducer);
+  const id = useContext(IdContext);
+  const userData = useSelector((state) => state.userReducer);
 
   return (
     <nav>
@@ -19,25 +19,25 @@ const Navbar = () => {
             </div>
           </NavLink>
         </div>
-        {/* {id ? ( */}
-        <ul>
-          <li></li>
-          <li className="welcome">
-            <NavLink exact to="/profil">
-              <h5>Bienvenue Mark Ranlargent</h5>
-            </NavLink>
-          </li>
-        </ul>
-        {/* ) : ( */}
-        <ul>
-          <li></li>
-          <li>
-            <NavLink exact to="/profil">
-              <img src="./img/icons/login.svg" alt="login" />
-            </NavLink>
-          </li>
-        </ul>
-        {/* )} */}
+        {id ? (
+          <ul>
+            <li></li>
+            <li className="welcome">
+              <NavLink exact to="/profil">
+                <h5>Bienvenue {userData.pseudo}</h5>
+              </NavLink>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li></li>
+            <li>
+              <NavLink exact to="/profil">
+                <img src="./img/icons/login.svg" alt="login" />
+              </NavLink>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );

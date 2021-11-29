@@ -39,6 +39,8 @@ const SignUpForm = () => {
           email,
           password,
         },
+        withCredentials: true,
+        headers: { "Content-Type": "application/json;charset=UTF-8" },
       })
         .then((res) => {
           if (res.data.errors) {

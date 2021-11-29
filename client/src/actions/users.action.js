@@ -7,7 +7,12 @@ export const getUsers = () => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/user`)
       .then((res) => {
-        dispatch({ type: GET_USERS, payload: res.data });
+        dispatch({
+          type: GET_USERS,
+          payload: res.data,
+          withCredentials: true,
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        });
       })
       .catch((err) => console.log(err));
   };
