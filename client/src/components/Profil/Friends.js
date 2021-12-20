@@ -1,161 +1,74 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { isEmpty, timestampParser } from "../Utils";
-import { NavLink } from "react-router-dom";
-import { getPosts, addPost } from "../../actions/post.actions";
+import { useSelector } from "react-redux";
+import { isEmpty } from "../Utils";
+import FollowHandler from "./FollowHandler";
 
-const NewPostForm = () => {
+const FriendsHint = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState("");
-  const [postPicture, setPostPicture] = useState(null);
-  const [video, setVideo] = useState("");
-  const [file, setFile] = useState();
-  const dispatch = useDispatch();
+  const [playOnce, setPlayOnce] = useState(true);
+  const [friendsHint, setFriendsHint] = useState([]);
   const userData = useSelector((state) => state.userReducer);
-
-  const handlePost = async () => {
-    if (message || postPicture || video) {
-      const data = new FormData();
-      data.append("posterId", userData._id);
-      data.append("message", message);
-      if (file) data.append("file", file);
-      data.append("video", video);
-
-      await dispatch(addPost(data));
-      dispatch(getPosts());
-      cancelPost();
-    } else {
-      alert("Veuillez entrer un message");
-    }
-  };
-
-  const handlePicture = (e) => {
-    setPostPicture(URL.createObjectURL(e.target.files[0]));
-    setFile(e.target.files[0]);
-    setVideo("");
-  };
-
-  const cancelPost = () => {
-    setMessage("");
-    setPostPicture("");
-    setVideo("");
-    setFile("");
-  };
+  const usersData = useSelector((state) => state.usersReducer);
 
   useEffect(() => {
-    if (!isEmpty(userData)) setIsLoading(false);
-
-    const handleVideo = () => {
-      let findLink = message.split(" ");
-      for (let i = 0; i < findLink.length; i++) {
-        if (
-          findLink[i].includes("https://www.yout") ||
-          findLink[i].includes("https://yout")
-        ) {
-          let embed = findLink[i].replace("watch?v=", "embed/");
-          setVideo(embed.split("&")[0]);
-          findLink.splice(i, 1);
-          setMessage(findLink.join(" "));
-          setPostPicture("");
-        }
+    const notFriendList = () => {
+      let array = [];
+      usersData.map((user) => {
+        if (user._id !== userData._id && !user.followers.includes(userData._id))
+          return array.push(user._id);
+      });
+      array.sort(() => 0.5 - Math.random());
+      if (window.innerHeight > 780) {
+        array.length = 5;
+      } else if (window.innerHeight > 720) {
+        array.length = 4;
+      } else if (window.innerHeight > 615) {
+        array.length = 3;
+      } else if (window.innerHeight > 540) {
+        array.length = 1;
+      } else {
+        array.length = 0;
       }
+      setFriendsHint(array);
     };
-    handleVideo();
-  }, [userData, message, video]);
+
+    if (playOnce && !isEmpty(usersData[0]) && !isEmpty(userData._id)) {
+      notFriendList();
+      setIsLoading(false);
+      setPlayOnce(false);
+    }
+  }, [usersData, userData, playOnce]);
 
   return (
-    <div className="post-container">
+    <div className="get-friends-container">
+      <h4>Suggestions</h4>
       {isLoading ? (
-        <i className="fas fa-spinner fa-pulse"></i>
+        <div className="icon">
+          <i className="fas fa-spinner fa-pulse"></i>
+        </div>
       ) : (
-        <>
-          <div className="data">
-            <p>
-              <span>{userData.following ? userData.following.length : 0}</span>{" "}
-              Abonnement
-              {userData.following && userData.following.length > 1 ? "s" : null}
-            </p>
-            <p>
-              <span>{userData.followers ? userData.followers.length : 0}</span>{" "}
-              Abonné
-              {userData.followers && userData.followers.length > 1 ? "s" : null}
-            </p>
-          </div>
-          <NavLink exact to="/profil">
-            <div className="user-info">
-              <img src={userData.picture} alt="user-img" />
-            </div>
-          </NavLink>
-          <div className="post-form">
-            <textarea
-              name="message"
-              id="message"
-              placeholder="Quoi de neuf ?"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
-            {message || postPicture || video.length > 20 ? (
-              <li className="card-container">
-                <div className="card-left">
-                  <img src={userData.picture} alt="user-pic" />
-                </div>
-                <div className="card-right">
-                  <div className="card-header">
-                    <div className="pseudo">
-                      <h3>{userData.pseudo}</h3>
-                    </div>
-                    <span>{timestampParser(Date.now())}</span>
-                  </div>
-                  <div className="content">
-                    <p>{message}</p>
-                    <img src={postPicture} alt="" />
-                    {video && (
-                      <iframe
-                        src={video}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title={video}
-                      ></iframe>
-                    )}
-                  </div>
-                </div>
-              </li>
-            ) : null}
-            <div className="footer-form">
-              <div className="icon">
-                {isEmpty(video) && (
-                  <>
-                    <img src="./img/icons/picture.svg" alt="img" />
-                    <input
-                      type="file"
-                      id="file-upload"
-                      name="file"
-                      accept=".jpg, .jpeg, .png"
-                      onChange={(e) => handlePicture(e)}
-                    />
-                  </>
-                )}
-                {video && (
-                  <button onClick={() => setVideo("")}>Supprimer video</button>
-                )}
-              </div>
-              <div className="btn-send">
-                {message || postPicture || video.length > 20 ? (
-                  <button className="cancel" onClick={cancelPost}>
-                    Annuler message
-                  </button>
-                ) : null}
-                <button className="send" onClick={handlePost}>
-                  Envoyer
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
+        <ul>
+          {friendsHint &&
+            friendsHint.map((user) => {
+              for (let i = 0; i < usersData.length; i++) {
+                if (user === usersData[i]._id) {
+                  return (
+                    <li className="user-hint" key={user}>
+                      <img src={usersData[i].picture} alt="user-pic" />
+                      <p>{usersData[i].pseudo}</p>
+                      <FollowHandler
+                        idToFollow={usersData[i]._id}
+                        type={"suggestion"}
+                      />
+                    </li>
+                  );
+                }
+              }
+            })}
+        </ul>
       )}
     </div>
   );
 };
 
-export default NewPostForm;
+export default FriendsHint;

@@ -58,8 +58,6 @@ export const unlikePost = (postId, userId) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
       data: { id: userId },
-      withCredentials: true,
-      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: UNLIKE_POST, payload: { postId, userId } });

@@ -10,7 +10,7 @@ const DeleteCard = (props) => {
   return (
     <div
       onClick={() => {
-        if (window.confirm("Voulez-vous supprimer cet articler?")) {
+        if (window.confirm("Voulez-vous supprimer cet article ?")) {
           deleteQuote();
         }
       }}

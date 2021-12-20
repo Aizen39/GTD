@@ -22,6 +22,7 @@ const UploadImg = () => {
       <label htmlFor="file">Changer d'image</label>
       <input
         type="file"
+        id="file"
         name="file"
         accept=".jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}

@@ -27,6 +27,7 @@ const Navbar = () => {
                 <h5>Bienvenue {userData.pseudo}</h5>
               </NavLink>
             </li>
+            <Logout />
           </ul>
         ) : (
           <ul>

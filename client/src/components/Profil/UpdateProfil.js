@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import userReducer from "../../reducers/user.reducer";
 import LeftNav from "../LeftNav";
+import { useDispatch, useSelector } from "react-redux";
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
 import { dateParser } from "../Utils";
@@ -9,9 +8,10 @@ import FollowHandler from "./FollowHandler";
 
 const UpdateProfil = () => {
   const [bio, setBio] = useState("");
+  const [updateForm, setUpdateForm] = useState(false);
   const userData = useSelector((state) => state.userReducer);
   const usersData = useSelector((state) => state.usersReducer);
-  const [updateForm, setUpdateForm] = useState(false);
+  //const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
@@ -24,28 +24,26 @@ const UpdateProfil = () => {
   return (
     <div className="profil-container">
       <LeftNav />
-      <h1>Profil de {userData.pseudo} </h1>
+      <h1> Profil de {userData.pseudo}</h1>
       <div className="update-container">
         <div className="left-part">
-          <h3>Profil pokémon</h3>
+          <h3>Photo de profil</h3>
           <img src={userData.picture} alt="user-pic" />
           <UploadImg />
+          {/* <p>{error.maxSize}</p>
+          <p>{error.format}</p> */}
         </div>
         <div className="right-part">
           <div className="bio-update">
             <h3>Bio</h3>
             {updateForm === false && (
               <>
-                <p onClick={() => setUpdateForm(!updateForm)}>
-                  {" "}
-                  {userData.bio} Bio
-                </p>
+                <p onClick={() => setUpdateForm(!updateForm)}>{userData.bio}</p>
                 <button onClick={() => setUpdateForm(!updateForm)}>
                   Modifier bio
                 </button>
               </>
             )}
-
             {updateForm && (
               <>
                 <textarea
@@ -53,18 +51,16 @@ const UpdateProfil = () => {
                   defaultValue={userData.bio}
                   onChange={(e) => setBio(e.target.value)}
                 ></textarea>
-                <button onClick={handleUpdate} type="">
-                  Valider modifications
-                </button>
+                <button onClick={handleUpdate}>Valider modifications</button>
               </>
             )}
           </div>
           <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
           <h5 onClick={() => setFollowingPopup(true)}>
-            Abonnements : {userData.following ? userData.following.length : "0"}
+            Abonnements : {userData.following ? userData.following.length : ""}
           </h5>
           <h5 onClick={() => setFollowersPopup(true)}>
-            Abonnés : {userData.followers ? userData.followers.length : "0"}
+            Abonnés : {userData.followers ? userData.followers.length : ""}
           </h5>
         </div>
       </div>
@@ -86,13 +82,14 @@ const UpdateProfil = () => {
                         <div className="follow-handler">
                           <FollowHandler
                             idToFollow={user._id}
-                            type="suggestion"
+                            type={"suggestion"}
                           />
                         </div>
                       </li>
                     );
                   }
                 }
+                return null;
               })}
             </ul>
           </div>
@@ -116,13 +113,14 @@ const UpdateProfil = () => {
                         <div className="follow-handler">
                           <FollowHandler
                             idToFollow={user._id}
-                            type="suggestion"
+                            type={"suggestion"}
                           />
                         </div>
                       </li>
                     );
                   }
                 }
+                return null;
               })}
             </ul>
           </div>

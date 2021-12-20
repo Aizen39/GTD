@@ -5,7 +5,7 @@ import FollowHandler from "../Profil/FollowHandler";
 import { isEmpty, timestampParser } from "../Utils";
 import EditDeleteComment from "./EditDeleteComment";
 
-const CardComments = ({ post }) => {
+const CardComment = ({ post }) => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -36,15 +36,13 @@ const CardComments = ({ post }) => {
             <div className="left-part">
               <img
                 src={
-                  !isEmpty(usersData[0])
-                    ? usersData
-                        .map((user) => {
-                          if (user._id === comment.commenterId)
-                            return user.picture;
-                          else return null;
-                        })
-                        .join("")
-                    : null
+                  !isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
+                      if (user._id === comment.commenterId) return user.picture;
+                      else return null;
+                    })
+                    .join("")
                 }
                 alt="commenter-pic"
               />
@@ -85,4 +83,4 @@ const CardComments = ({ post }) => {
   );
 };
 
-export default CardComments;
+export default CardComment;

@@ -6,14 +6,14 @@ import { isEmpty } from "../Utils";
 const FollowHandler = ({ idToFollow, type }) => {
   const userData = useSelector((state) => state.userReducer);
   const [isFollowed, setIsFollowed] = useState(false);
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const handleFollow = () => {
     dispatch(followUser(userData._id, idToFollow));
     setIsFollowed(true);
   };
 
-  const handleUnFollow = () => {
+  const handleUnfollow = () => {
     dispatch(unfollowUser(userData._id, idToFollow));
     setIsFollowed(false);
   };
@@ -29,9 +29,9 @@ const FollowHandler = ({ idToFollow, type }) => {
   return (
     <>
       {isFollowed && !isEmpty(userData) && (
-        <span onClick={handleUnFollow}>
+        <span onClick={handleUnfollow}>
           {type === "suggestion" && (
-            <button className="unfollowed-btn">Abonné</button>
+            <button className="unfollow-btn">Abonné</button>
           )}
           {type === "card" && (
             <img src="./img/icons/checked.svg" alt="checked" />
@@ -43,7 +43,7 @@ const FollowHandler = ({ idToFollow, type }) => {
           {type === "suggestion" && (
             <button className="follow-btn">Suivre</button>
           )}
-          {type === "card" && <img src="./img/icons/check.svg" alt="checked" />}
+          {type === "card" && <img src="./img/icons/check.svg" alt="check" />}
         </span>
       )}
     </>

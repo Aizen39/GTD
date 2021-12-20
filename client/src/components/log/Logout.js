@@ -18,6 +18,7 @@ const Logout = () => {
     })
       .then(() => removeCookie("jwt"))
       .catch((err) => console.log(err));
+    window.location = "/";
   };
   return (
     <li onClick={logout}>

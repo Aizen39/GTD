@@ -2,32 +2,32 @@ import React, { useContext, useEffect, useState } from "react";
 import { IdContext } from "../AppContext";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { likePost, unlikePost } from "../../actions/post.actions";
 import { useDispatch } from "react-redux";
+import { likePost, unlikePost } from "../../actions/post.actions";
 
 const LikeButton = ({ post }) => {
   const [liked, setLiked] = useState(false);
-  const id = useContext(IdContext);
+  const uid = useContext(IdContext);
   const dispatch = useDispatch();
 
   const like = () => {
-    dispatch(likePost(post._id, id));
+    dispatch(likePost(post._id, uid));
     setLiked(true);
   };
 
   const unlike = () => {
-    dispatch(unlikePost(post._id, id));
+    dispatch(unlikePost(post._id, uid));
     setLiked(false);
   };
 
   useEffect(() => {
-    if (post.likers.includes(id)) setLiked(true);
+    if (post.likers.includes(uid)) setLiked(true);
     else setLiked(false);
-  }, [id, post.likers, liked]);
+  }, [uid, post.likers, liked]);
 
   return (
     <div className="like-container">
-      {id === null && (
+      {uid === null && (
         <Popup
           trigger={<img src="./img/icons/heart.svg" alt="like" />}
           position={["bottom center", "bottom right", "bottom left"]}
@@ -36,10 +36,10 @@ const LikeButton = ({ post }) => {
           <div>Connectez-vous pour aimer un post !</div>
         </Popup>
       )}
-      {id && liked === false && (
+      {uid && liked === false && (
         <img src="./img/icons/heart.svg" onClick={like} alt="like" />
       )}
-      {id && liked && (
+      {uid && liked && (
         <img src="./img/icons/heart-filled.svg" onClick={unlike} alt="unlike" />
       )}
       <span>{post.likers.length}</span>
