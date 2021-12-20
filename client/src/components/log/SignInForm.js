@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
@@ -10,11 +10,16 @@ const SignInForm = () => {
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}api/user/login`, {
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}api/user/login`,
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
+      data: {
         email,
         password,
-      })
+      },
+    })
       .then((res) => {
         console.log(res);
         if (res.data.errors) {
@@ -40,8 +45,6 @@ const SignInForm = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
       />
-      <br />
-
       <div className="email error"></div>
       <br />
       <label htmlFor="password">Mot de passe</label>
@@ -53,7 +56,6 @@ const SignInForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-
       <div className="password error"></div>
       <br />
       <input type="submit" value="Se connecter" />

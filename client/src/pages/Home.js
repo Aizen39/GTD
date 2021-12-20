@@ -1,26 +1,29 @@
 import React, { useContext } from "react";
 import { IdContext } from "../components/AppContext";
 import LeftNav from "../components/LeftNav";
-import Log from "../components/log";
-import TimeLine from "../components/TimeLine";
 import NewPostForm from "../components/Post/NewPostForm";
+import Log from "../components/log";
+//import Trends from "../components/Trends";
 import Friends from "../components/Profil/Friends";
+import TimeLine from "../components/TimeLine";
 
 const Home = () => {
-  const id = useContext(IdContext);
+  const uid = useContext(IdContext);
+
   return (
     <div className="home">
       <LeftNav />
       <div className="main">
         <div className="home-header">
-          {id ? <NewPostForm /> : <Log signin={true} signup={false} />}
+          {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
         </div>
         <TimeLine />
       </div>
       <div className="right-side">
         <div className="right-side-container">
           <div className="wrapper">
-            <Friends />
+            {/*    <Trends /> */}
+            {uid && <Friends />}
           </div>
         </div>
       </div>

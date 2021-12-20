@@ -11,7 +11,12 @@ export const getUser = (id) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
       .then((res) => {
-        dispatch({ type: GET_USER, payload: res.data });
+        dispatch({
+          type: GET_USER,
+          payload: res.data,
+          withCredentials: true,
+          headers: { "Content-Type": "application/json;charset=UTF-8" },
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -25,7 +30,12 @@ export const uploadPicture = (data, id) => {
         return axios
           .get(`${process.env.REACT_APP_API_URL}api/user/upload/${id}`)
           .then((res) => {
-            dispatch({ type: UPLOAD_PICTURE, payload: res.data.picture });
+            dispatch({
+              type: UPLOAD_PICTURE,
+              payload: res.data.picture,
+              withCredentials: true,
+              headers: { "Content-Type": "application/json;charset=UTF-8" },
+            });
           });
       })
       .catch((err) => console.log(err));
@@ -38,6 +48,8 @@ export const updateBio = (userId, bio) => {
       method: "put",
       url: `${process.env.REACT_APP_API_URL}api/user/` + userId,
       data: { bio },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then((res) => {
         dispatch({ type: UPDATE_BIO, payload: bio });
@@ -52,6 +64,8 @@ export const followUser = (followerId, idToFollow) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/user/follow` + followerId,
       data: { idToFollow },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     }).then((res) => {
       dispatch({
         type: FOLLOW_USER,
@@ -67,6 +81,8 @@ export const unfollowUser = (followerId, idToUnFollow) => {
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/user/unfollow` + followerId,
       data: { idToUnFollow },
+      withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     }).then((res) => {
       dispatch({
         type: UNFOLLOW_USER,

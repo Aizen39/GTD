@@ -14,9 +14,11 @@ const Logout = () => {
       method: "get",
       url: `${process.env.REACT_APP_API_URL}api/user/logout`,
       withCredentials: true,
+      headers: { "Content-Type": "application/json;charset=UTF-8" },
     })
       .then(() => removeCookie("jwt"))
       .catch((err) => console.log(err));
+    window.location = "/";
   };
   return (
     <li onClick={logout}>

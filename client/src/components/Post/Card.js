@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isEmpty, dateParser } from "../Utils";
+import { dateParser, isEmpty } from "../Utils";
 import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import { updatePost } from "../../actions/post.actions";
@@ -16,7 +16,7 @@ const Card = ({ post }) => {
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  const updateItem = async () => {
+  const updateItem = () => {
     if (textUpdate) {
       dispatch(updatePost(post._id, textUpdate));
     }
@@ -29,9 +29,9 @@ const Card = ({ post }) => {
 
   return (
     <li className="card-container" key={post._id}>
-      {/* {isLoading ? ( */}
-      <i className=" fas fa-spinner fa-spin"></i>
-      {/* ) : ( */}
+      {/* {isLoading ?
+      <i className="fas fa-spinner fa-spin"></i>
+      {/*   /* ) : ( */}
       <>
         <div className="card-left">
           <img
@@ -42,7 +42,7 @@ const Card = ({ post }) => {
                   if (user._id === post.posterId) return user.picture;
                   else return null;
                 })
-                .join("") /*  */
+                .join("")
             }
             alt="poster-pic"
           />
@@ -74,7 +74,7 @@ const Card = ({ post }) => {
               />
               <div className="button-container">
                 <button className="btn" onClick={updateItem}>
-                  Valider modifications
+                  Valider modification
                 </button>
               </div>
             </div>
@@ -111,12 +111,12 @@ const Card = ({ post }) => {
               <span>{post.comments.length}</span>
             </div>
             <LikeButton post={post} />
-            <img src="./img/icons/share.svg" alt="share"></img>
+            <img src="./img/icons/share.svg" alt="share" />
           </div>
           {showComments && <CardComments post={post} />}
         </div>
       </>
-      {/*  )} */}
+      {/*    )} */}
     </li>
   );
 };

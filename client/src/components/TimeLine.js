@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../actions/post.actions";
-import { isEmpty } from "./Utils";
 import Card from "./Post/Card";
+import { isEmpty } from "./Utils";
 
 const TimeLine = () => {
   const [loadPost, setLoadPost] = useState(true);
